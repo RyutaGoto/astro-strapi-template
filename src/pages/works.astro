@@ -1,0 +1,28 @@
+---
+import fetchApi from "@/lib/strapi";
+import type Work from '@/interfaces/work'
+const works = await fetchApi<Work[]>({
+  endpoint: 'works?populate=*', // the content type to fetch
+  wrappedByKey: 'data', // the key to unwrap the response
+});
+
+---
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Strapi & Astro</title>
+  </head>
+
+  <body>
+    <main>
+      <h1>works</h1>
+      <ul>
+        {
+          works.map((work) => {
+            return <p>{work.attributes.updatedAt}</p>
+          })
+        }
+      </ul>
+    </main>
+  </body>
+</html>
